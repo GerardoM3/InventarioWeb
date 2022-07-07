@@ -14,6 +14,12 @@ public class Producto {
 
     public Producto() {
         this.id_producto = 0;
+        this.nom_producto = "";
+        this.categoria_id = 1;
+        this.stock = 0;
+        this.precio = 0;
+        this.unidadMedida = "";
+        this.estado = 1;
         this.categoria = new Categoria(); //Inicializar el modelo categoría
     }
 

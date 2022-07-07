@@ -21,8 +21,8 @@
     <body>
         <%@include file="../WEB-INF/Vistas-Parciales/encabezado.jspf"%>
         <h1>Mantenimiento Categorías</h1>
-        <form class="form-horizontal" id="frmCategoria" name="frmCategoria" action="<%= request.getContextPath()%>/categorias" method="post">
-            <input type="hidden"  value="<%= categoria.getId_categoria() %>" name="id_categoria">
+        <form class="form-horizontal" id="frmCategoria" name="frmCategoria" action="<%= request.getContextPath()%>/categorias?opcion=crear" method="post">
+            <input   value="<%= categoria.getId_categoria() %>" name="id_categoria">
             <div class="form-group">
                 <label for="txtNomCategoria" class="col-sm-2 control-label">Nombre:</label>
                 <div class="col-sm-10">
@@ -42,6 +42,6 @@
                     </div>
                 </div>
         </form>
-                        <%@include file="../WEB-INF/Vistas-Parciales/pie.jspf"%>
+        <%@include file="../WEB-INF/Vistas-Parciales/pie.jspf"%>
     </body>
 </html>

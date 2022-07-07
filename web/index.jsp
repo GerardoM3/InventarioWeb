@@ -6,18 +6,46 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <%@include file="WEB-INF/Vistas-Parciales/css-js.jspf"%>
+        
+        <%@include file="WEB-INF/Vistas-Parciales/style_login.jspf" %>
     </head>
     <body>
-        <%@include file="WEB-INF/Vistas-Parciales/encabezado.jspf"%>
-        <div>TODO write content</div>
-        <%
-            out.println("Saludos programadores");
-        %>
         
-        <%@include file="WEB-INF/Vistas-Parciales/pie.jspf"%>
+        <div class="container">
+            <div class="login-container">
+                <h1 class="login-title">Iniciar sesión</h1>
+                <form action="index" method="post">
+                    <div >
+                        Usuario: <input type="text" name="txtuser" class="user-label" placeholder="Ingrese su usuario" />
+                    </div>
+                    <div >
+                        Contraseña: <input type="password" name="txtpass" class="pass-label" placeholder="Ingrese su contraseña" />
+                    </div>
+
+                    <div class="div-btn-ingresar">
+                        <input class="btn-ingresar" type="submit" value="Ingresar" name="btn_session">
+                    </div>
+
+                    <br>
+                    <div class="register-link">
+                        <a href="#" class="enlace-registrar">Registrarme</a>
+                    </div>
+                </form>
+                
+                
+                
+            </div>
+              
+                
+        </div>
+        
+        
+        <div class="pie_pag">
+            <%@include file="WEB-INF/Vistas-Parciales/pie.jspf"%>
+        </div>  
+        
     </body>
 </html>

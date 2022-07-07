@@ -1,0 +1,60 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<style>
+        body{
+            background-color:#939dbbff;
+            font-family: cambria;
+        }
+        .container{
+            
+            
+        }
+        .login-title{
+            font-size: 45px;
+            margin-bottom: 3rem;
+        }
+        .login-container{
+            margin:auto;
+            position: relative;
+            background-color: white;
+            padding:10%;
+            padding-top: 2rem;
+            width: 25vw;
+            height: 60vh;
+        }
+        .user-label{
+            margin-bottom: 1rem;
+        }
+        .pass-label{
+            margin-bottom: 2rem;
+        }
+
+        .user-label, .pass-label{
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: cambria;
+        } 
+        .user-label:focus, .pass-label:focus{
+            outline-style: none;
+            border-color: #3771c8ff;
+        }
+        .div-btn-ingresar{
+            text-align: right;
+        }
+        .btn-ingresar{
+            font-family: cambria;
+            padding: 7px;
+            color: #cccccc;
+            background-color: #3771c8ff;
+            border-style: none;
+            width: 100px;
+            border-radius: 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .pie{
+            text-align: center;
+            margin: 2rem;
+        }
+    </style>

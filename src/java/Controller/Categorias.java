@@ -58,6 +58,9 @@ public class Categorias extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
+    
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -99,6 +102,10 @@ public class Categorias extends HttpServlet {
             
             /*RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(pagina);
             dispatcher.forward(request, response);*/
+        }else if(parametro.equals("editar")){
+            String pagina = "/Vistas-Categorias/actualizarCategoria.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(pagina);
+            dispatcher.forward(request, response);
         }else{
             this.listaCategorias(request, response);
         }
@@ -117,13 +124,38 @@ public class Categorias extends HttpServlet {
             throws ServletException, IOException {
         
         System.out.println("DOPOST " + request.getParameter("opcion"));
-        if(request.getParameter("opcion").equals("actualizar")){
-            String pagina = "/Vistas-Categorias/listarCategoria.jsp";
+        if(request.getParameter("opcion").equals("editar")){
+            String id_cat_edit = request.getParameter("id");
+            String nom_cat_edit = request.getParameter("nombre");
+            String est_cat_edit = request.getParameter("estado");
+            
+            System.out.println(id_cat_edit);
+            System.out.println(nom_cat_edit);
+            System.out.println(est_cat_edit);
+            
+            CategoriaDAO categoria = new CategoriaDAOImplementar();
+            Categoria cat = new Categoria();
+            cat.setId_categoria(Integer.parseInt(id_cat_edit));
+            cat.setNom_categoria(nom_cat_edit);
+            cat.setEstado_categoria(Integer.parseInt(est_cat_edit));
+            if(categoria.guardarCat(cat)==true){
+                //System.out.println("Registro Actualizado.");
+                 
+                 this.listaCategorias(request, response);
+            }else{
+                System.out.println("Error. El registro no se pudo actualizar.");
+            }
+            //String pagina = "/Vistas-Categorias/listarCategoria.jsp";
             //this.actualizarCategoria(request, response);
             
             /*RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(pagina);
             dispatcher.forward(request, response);*/
-        }else{
+        }else if(request.getParameter("opcion").equals("crear")){
+            
+            System.out.println(Integer.parseInt(request.getParameter("id_categoria")));
+            System.out.println(request.getParameter("txtNomCategoria"));
+            System.out.println(Integer.parseInt(request.getParameter("txtEstadoCategoria")));
+            
             Categoria categoria = new Categoria();
             //Se efectua el casting o conversión de datos porque lo ingresado en el formulario es texto
             categoria.setId_categoria(Integer.parseInt(request.getParameter("id_categoria")));

@@ -5,13 +5,18 @@
  */
 package Controller;
 
+import DAO.UserDAO;
+import DAO.UserDAOImplementar;
+import Model.UserM;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -58,7 +63,7 @@ public class Index extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Si da error importar la librería correspondiente import javax.servlet.RequestDispatcher;
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Principal.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -73,7 +78,47 @@ public class Index extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String dato_user_form = request.getParameter("txtuser");
+        String dato_pass_form = request.getParameter("txtpass");
+        
+        UserDAO usuario = new UserDAOImplementar();
+        
+        ArrayList<UserM> users = new ArrayList();
+        
+        HttpSession var_sesion = request.getSession(true);
+        
+        users = usuario.startSession(dato_user_form, dato_pass_form);
+        
+        if(users.size()>0){
+            String full_name = users.get(0).getNombre_u() + " " + users.get(0).getApellido_u();
+            
+            int tipo_user = users.get(0).getTipo();
+            String name_user = users.get(0).getUsuario();
+            String email_user = users.get(0).getCorreo_u();
+            
+            var_sesion.setAttribute("sessionNombres", full_name);
+            
+            var_sesion.setAttribute("sessionTipo", String.valueOf(tipo_user));
+            var_sesion.setAttribute("sessionUsuario", name_user);
+            var_sesion.setAttribute("sessionEmail", email_user);
+            
+            var_sesion.setAttribute("lista", users);
+            
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Principal.jsp");
+            dispatcher.forward(request, response);
+        }else{
+            response.setContentType("text/html;charset=UTF-8");
+            try(PrintWriter out = response.getWriter()){
+                String url = "index";
+                out.println("<script>valor=confirm(\"Error. Usuario o Clave Incorrecto. " + "\\nNombre de Usuario: " + dato_user_form + "\\n\\nClic en aceptar para volver a intentarlo. \");valor;"
+                + "if (valor==true){"
+                + "location.href='" + url + "';"
+                + "}else{"
+                + "location.href='" + url + "';"
+                + "}"
+                + "</script>");
+            }
+        }
     }
 
     /**

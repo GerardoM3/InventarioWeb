@@ -27,16 +27,15 @@ public class ProductoDAOImplementar implements ProductoDAO {
         try{
             ResultSet resultadoSQL = this.conn.consultaSQL(miSQL.toString());
             while(resultadoSQL.next()){
-                Categoria categoria = new Categoria();
                 Producto producto = new Producto();
                 
                 producto.setId_producto(resultadoSQL.getInt("id_producto"));
-                producto.setNom_producto(resultadoSQL.getString("nom_categoria"));
-                producto.setCategoria_id(resultadoSQL.getInt("categoria"));
+                producto.setNom_producto(resultadoSQL.getString("nom_producto"));
                 producto.setStock(resultadoSQL.getFloat("stock"));
                 producto.setPrecio(resultadoSQL.getFloat("precio"));
                 producto.setUnidadMedida(resultadoSQL.getString("unidad_de_medida"));
                 producto.setEstado(resultadoSQL.getInt("estado_producto"));
+                producto.setCategoria_id(resultadoSQL.getInt("categoria"));
                 lista.add(producto);
             }
         }catch(Exception ex){
@@ -86,10 +85,10 @@ public class ProductoDAOImplementar implements ProductoDAO {
             if(producto.getId_producto() == 0){//Para cuando es una nueva categoria
                 StringBuilder miSQL = new StringBuilder();
                 //Agregar consulta SQL; el id_categoria es autoincrementable
-                miSQL.append("INSERT INTO tb_producto(nom_producto, categoria, stock, precio, unidad_de_medida, estado_producto) VALUES ('");
-                miSQL.append(producto.getNom_producto() + "', ").append(producto.getCategoria_id());
-                miSQL.append(producto.getStock() + "', ").append(producto.getPrecio());
-                miSQL.append(producto.getUnidadMedida() + "', ").append(producto.getEstado());
+                miSQL.append("INSERT INTO tb_producto(nom_producto,  stock, precio, unidad_de_medida, estado_producto, categoria) VALUES ('");
+                miSQL.append(producto.getNom_producto() + "', ").append(producto.getStock() + ", ");
+                miSQL.append(producto.getPrecio() + ", '").append(producto.getUnidadMedida() + "',");
+                miSQL.append(producto.getEstado() + ", ").append(producto.getCategoria_id());
                 miSQL.append(");");
                 //Invocar método para ejecutar la consulta
                 this.conn.ejecutarSQL(miSQL.toString());

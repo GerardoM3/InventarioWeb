@@ -5,6 +5,8 @@
         Sistema de Control de Inventario
         <a href="index" class="btn btn-primary btn-sm" role="button">Inicio</a>
         <a href="categorias?opcion=listar" class="btn btn-primary btn-sm" role="button">Categorías</a>
+        <a href="productos?opcion=listar" class="btn btn-primary btn-sm">Productos</a>
+        <a href="salir" class="btn btn-primary btn-lg" style="right: 0px;position:absolute;">Cerrar sesión</a>
     </div>
     <div class = "contenido">
     <!-- Este DIV no se cierra aquí, se cierra en pie.jspf -->

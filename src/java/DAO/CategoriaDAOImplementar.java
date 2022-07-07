@@ -82,6 +82,7 @@ public class CategoriaDAOImplementar implements CategoriaDAO{
                 miSQL.append(");");
                 //Invocar método para ejecutar la consulta
                 this.conn.ejecutarSQL(miSQL.toString());
+                System.out.println("Instrucción ejecutada");
             }else if(categoria.getId_categoria() > 0){ //Actualizar, id_categoria
                 StringBuilder miSQL = new StringBuilder();
                 miSQL.append("UPDATE tb_categoria SET id_categoria = ").append(categoria.getId_categoria());
