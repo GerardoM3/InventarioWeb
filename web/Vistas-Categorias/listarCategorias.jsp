@@ -5,6 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    try{
+        HttpSession var_sesion = request.getSession(false);
+        String nombres = (String) var_sesion.getAttribute("sessionNombres");
+        String user = (String) var_sesion.getAttribute("sessionUsuario");
+        String tipo = (String) var_sesion.getAttribute("sessionTipo");
+        String correo = (String) var_sesion.getAttribute("sessionEmail");
+        
+        if(user == null){
+            out.print("<center><h2><font color='blue'>Debe de haber iniciado sesión para poder ingresar a esta página.</font><br><hr><font color='blue'>Inténtelo de nuevo</font><hr><h2></center><br>");
+            out.print("<center><h2><font color='blue'> Por favor espere...</font><hr><h2></center>");
+            
+            response.sendRedirect("./");
+            
+        }else if(user!=null){
+%> 
 <!DOCTYPE html>
 <%@page import = "Model.Categoria" %><!-- Importar el modelo -->
 <%@page import = "DAO.CategoriaDAOImplementar" %>
@@ -25,7 +41,8 @@
         <%@include file="../WEB-INF/Vistas-Parciales/encabezado.jspf" %>
         <div style="width: 600px;">
             <a href="<%=request.getContextPath() %>/categorias?opcion=crear" class="btn btn-success btn-sm glyphicon glyphicon-pencil" role="button"> Nueva Categoría</a>
-            <button id="btnnuevo" > Botón</button>
+            <a href="<%=request.getContextPath() %>/reporte?opcion=Categoria" class="btn btn-sm btn-secondary" role="button">Reporte</a>
+            
             
             
             
@@ -41,17 +58,15 @@
                         Categoria categoria = new Categoria();
                         
                         categoria = (Categoria)lista.get(i);
-                        System.out.println(lista.lastIndexOf(categoria));
                         
                 %>
                 <tr>
-                <input name="id_categoria_eliminar"  value="<%= categoria.getId_categoria() %>" />
                     <td name="id_cate"><%= categoria.getId_categoria() %></td>
                     <td name="nombre_cate"><%= categoria.getNom_categoria() %></td>
                     <td name="estado_cate"><%=categoria.getEstado_categoria() %></td>
                     <td>
                         <a href="<%=request.getContextPath() %>/categorias?opcion=editar&&id_cate=<%= categoria.getId_categoria()%>&&nombre_cate=<%= categoria.getNom_categoria()%>&&estado_cate=<%= categoria.getEstado_categoria()%>" class="btn btn-info btn-sm glyphicon glyphicon-edit" role="button"> Editar</a>
-                        <a href="<%= request.getContextPath()%>/categorias?opcion=eliminar&&id_categoria_eliminar=<%= categoria.getId_categoria() %>" type="button" name='btneliminar' id='btneliminar' class="btn btn-primary btn-sm glyphicon glyphicon-remove" data-toggle="modal" data-target="#myModal"> Eliminar</a>
+                        <a href="<%= request.getContextPath()%>/categorias?opcion=eliminar&&id_categoria_eliminar=<%= categoria.getId_categoria() %>" type="button" name='btneliminar' id='btneliminar' class="btn btn-primary btn-sm glyphicon glyphicon-remove"> Eliminar</a>
                         <%--<%= request.getContextPath()%>/categorias?opcion=eliminar&&id_categoria_eliminar=<%= categoria.getId_categoria() %>--%>
                         <!-- Modal -->
                         <div class="modal fade" role="dialog" id="myModal" tabindex="-1" aria-labelledby="myModal" aria-hidden="true">
@@ -122,3 +137,9 @@
         <script src='js/codigo.js'></script>
     </body>
 </html>
+<%
+        }
+    }catch(Exception e){
+        
+    }
+%>

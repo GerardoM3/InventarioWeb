@@ -1,5 +1,5 @@
-CREATE DATABASE db_inventario;
-use db_inventario;
+CREATE DATABASE db_inventario_monroy;
+use db_inventario_monroy;
 
 CREATE TABLE tb_categoria(
 	id_categoria int(5) AUTO_INCREMENT PRIMARY KEY,
@@ -11,8 +11,8 @@ CREATE TABLE tb_categoria(
 CREATE TABLE tb_producto(
 	id_producto int(9) PRIMARY KEY AUTO_INCREMENT,
 	nom_producto varchar(50) NOT NULL,
-	stock decimal(3,2),
-	precio decimal(3,2),
+	stock decimal(5,2),
+	precio decimal(5,2),
 	unidad_de_medida varchar(20),
 	estado_producto tinyint(1),
 	categoria int(5),
@@ -20,8 +20,8 @@ CREATE TABLE tb_producto(
 	ENGINE INNODB
 	DEFAULT CHARSET = utf8mb4;  
 
-CREATE TABLE tb_usuario (
-	id int(11) NOT NULL,
+CREATE TABLE tb_user(
+	id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	nombre varchar(60) NOT NULL,
 	apellido varchar(40) NOT NULL,
 	correo varchar(60) NOT NULL,
@@ -29,5 +29,5 @@ CREATE TABLE tb_usuario (
 	clave varchar(150) NOT NULL,
 	tipo int(3) NOT NULL,
 	estado tinyint(1) NOT NULL,
-	fecha_registro timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+	fecha timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -16,6 +16,10 @@
         <servlet-name>Salir</servlet-name>
         <servlet-class>Controller.Salir</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PDF</servlet-name>
+        <servlet-class>Controller.PDF</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>Salir</servlet-name>
         <url-pattern>/salir</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PDF</servlet-name>
+        <url-pattern>/reporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

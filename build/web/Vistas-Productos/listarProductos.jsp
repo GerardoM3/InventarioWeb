@@ -5,7 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%
+    try{
+        HttpSession var_sesion = request.getSession(false);
+        String nombres = (String) var_sesion.getAttribute("sessionNombres");
+        String user = (String) var_sesion.getAttribute("sessionUsuario");
+        String tipo = (String) var_sesion.getAttribute("sessionTipo");
+        String correo = (String) var_sesion.getAttribute("sessionEmail");
+        
+        if(user == null){
+            out.print("<center><h2><font color='blue'>Debe de haber iniciado sesión para poder ingresar a esta página.</font><br><hr><font color='blue'>Inténtelo de nuevo</font><hr><h2></center><br>");
+            out.print("<center><h2><font color='blue'> Por favor espere...</font><hr><h2></center>");
+            
+            response.sendRedirect("./");
+            
+        }else if(user!=null){
+%> 
 <!DOCTYPE html>
 <%@page import = "Model.Producto" %><!-- Importar el modelo -->
 <jsp:useBean id = "lista" scope="session" class = "java.util.List"/>
@@ -33,7 +48,6 @@
 
                 %>
                 <tr>
-                <input name="id_producto_eliminar"  value="<%= producto.getId_producto() %>" />
                     <td name="id_produ"><%= producto.getId_producto() %></td>
                     <td name="nombre_produ"><%= producto.getNom_producto() %></td>
                     <td name="stock_produ"><%= producto.getStock() %></td>
@@ -43,7 +57,7 @@
                     <td name="id_categoria"><%= producto.getCategoria_id() %></td>
                     <td>
                         <a href="<%=request.getContextPath() %>/productos?opcion=editar&&id_prod=<%= producto.getId_producto() %>&&nom_prod=<%= producto.getNom_producto() %>&&stock=<%= producto.getStock() %>&&precio=<%= producto.getPrecio() %>&&unidadMedida=<%= producto.getUnidadMedida() %>&&estado=<%= producto.getEstado() %>&&id_cat=<%= producto.getCategoria_id() %>" class="btn btn-info btn-sm glyphicon glyphicon-edit" role="button"> Editar</a>
-                        <a href="<%= request.getContextPath()%>/productos?opcion=eliminar&&id_producto_eliminar=<%= producto.getId_producto() %>" id="modal-381168" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Eliminar</a>
+                        <a href="<%= request.getContextPath()%>/productos?opcion=eliminar&&id_producto_eliminar=<%= producto.getId_producto() %>" id="modal-381168" type="button" class="btn btn-primary"> Eliminar</a>
                         
                         <%--<%= request.getContextPath()%>/categorias?opcion=eliminar&&id_categoria_eliminar=<%= categoria.getId_categoria() %>--%>
                     </td>
@@ -62,3 +76,9 @@
         <%@include file="../WEB-INF/Vistas-Parciales/pie.jspf" %>
     </body>
 </html>
+<%
+        }
+    }catch(Exception e){
+        
+    }
+%>

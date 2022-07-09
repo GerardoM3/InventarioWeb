@@ -117,6 +117,7 @@ public class Index extends HttpServlet {
                 + "location.href='" + url + "';"
                 + "}"
                 + "</script>");
+                var_sesion.invalidate();
             }
         }
     }
